@@ -1,0 +1,19 @@
+#geomap {
+        padding: 10px;
+        margin: 10px 0;
+      }
+      
+      p {
+        color: #222;
+        font: 14px Arial;
+      }
+      
+      span {
+        color: #00C;
+      }
+
+ #map{
+        padding: 300px;
+        height: 100%;
+        width: 25%;
+      }
