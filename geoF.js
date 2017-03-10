@@ -1,5 +1,4 @@
-
-navigator.serviceWorker.register('serviceWorker.js').then((registration) => {
+navigator.serviceWorker.register('serviceWorker.js').then((swRegistration) => {
   let region = new CircularGeofenceRegion({
     name: 'fence',
     latitude: 52.301764,
@@ -9,7 +8,7 @@ navigator.serviceWorker.register('serviceWorker.js').then((registration) => {
   let options = {
     includePositon: true
   };
-  registration.geofencing.add(region, options).then(
+  swRegistration.geofencing.add(region, options).then(
     (geofence) => console.log(geofence.id),
     (error) => console.log(error)
     );
