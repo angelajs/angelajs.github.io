@@ -1,77 +1,10 @@
-window.onload = function() {
-        var fence;
-        var fenceLat;
-        var fenceLong;
-        var distance;
-        var map;
-
-      
-        if (navigator.geolocation) {
-
-          fenceLat = 52.301764;
-          fenceLong = -0.002352;
-
-          $("#startLat").text(fenceLat);
-          $("#startLon").text(fenceLong);
-      
-          navigator.geolocation.watchPosition(function(position) {
-            $("#currentLat").text(position.coords.latitude);
-            $("#currentLon").text(position.coords.longitude);
-
-            distance = calculateDistance(fenceLat, fenceLong,position.coords.latitude, position.coords.longitude)
-            $("#distance").text(distance);
-
-            if(distance < 5){
-              $("#message").text("Inside of the fence")
-            }else if(distance > 5){
-              $("#message").text("Outside of the fence")
-            }
-          });
-        }
-      };
-
-      function calculateDistance(lat1, lon1, lat2, lon2) {
-        var R = 6371; // km
-        var dLat = (lat2-lat1).toRad();
-        var dLon = (lon2-lon1).toRad();
-        var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-                Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) *
-                Math.sin(dLon/2) * Math.sin(dLon/2);
-        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-        var d = R * c;
-        return d;
-      }
-      Number.prototype.toRad = function() {
-        return this * Math.PI / 180;
-      }
-
-//map
 function initMap() {
-  map = new google.maps.Map(document.getElementById('map'), {
+var myPosition = new google.maps.LatLng(52.301764, -0.002352);
+  var map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 52.301764, lng: -0.002352},
-    zoom: 2,
-    mapTypeId: 'terrain'
+    zoom: 3,
   });
 
-//geolocation
-  var infoWindow = new google.maps.InfoWindow({map: map});
-  if (navigator.geolocation){
-    navigator.geolocation.getCurrentPosition (function(position){
-      var pos = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
-
-      infoWindow.setPosition(pos);
-      infoWindow.setContent('Location found.');
-      map.setCenter(pos);
-    }, function(){
-      handleLocationError(true, infoWindow, map.getCetre());
-    });
-  } else{
-    handleLocationError(false, infoWindow, map.getCetre());
-  }
-  
   //polygon region coords
   var eea = [
     {lat: 49.0119, lng: 22.86681},
@@ -2612,30 +2545,15 @@ function initMap() {
    ];
 
   //contructing the polygon
+
   var region = new google.maps.Polygon({
-    paths: [eea, canada, southAmerica, newZealand],
-    strokeColor: '#FF0000',
-    strokeOpacity: 0.8,
-    strokeWeight: 2,
-    fillColor: '#FF0000',
-    fillOpacity: 0.35
+    paths: newZealand
   });
 
-  region.setMap(map);
-}
+  if (google.maps.geometry.poly.containsLocation(myPosition, region)) {
+    alert("IN");
+  } else {
+  alert ("OUT")
+  }
 
-function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-  infoWindow.setPosition(pos);
-  infoWindow.setContent(browserHasGeolocation ?
-  'Error: The Geolocation service failed.' :
-  'Error: Your browser doesn\'t support geolocation.');
 }
-
-/*
-      function showPosition (position){
-        var currentPosition = position.coords.latitude + "," + position.coords.longitude;
-        var img_url = https://maps.googleapis.com/maps/api/staticmap?center="
-    +currentPositionn+"&zoom=14&size=400x300&sensor=false&key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU";
-    document.getElementById("tripmeter").innerHTML = "<img src = '"+img_url+"'>";
-      }
-*/
