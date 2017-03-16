@@ -2581,3 +2581,10 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   'Error: The Geolocation service failed.' :
   'Error: Your browser doesn\'t support geolocation.');
 }
+
+//prompt
+function revokePermission(){
+  navigator.permissions.revoke({name:'geolocation'}).then(function(result){
+    report(result.state);
+  });
+}
