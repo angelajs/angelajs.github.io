@@ -1,9 +1,29 @@
 function initMap() {
-var myPosition = new google.maps.LatLng(52.301764, -0.002352);
   var map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 52.301764, lng: -0.002352},
     zoom: 3,
+    mapTypeId: 'terrain'
   });
+
+  //location alert
+  var infoWindow = new google.maps.InfoWindow({map: map});
+  if (navigator.geolocation){
+    navigator.geolocation.getCurrentPosition (function(position){
+      var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+      if (google.maps.geometry.poly.containsLocation(pos, region)) {
+        alert("IN");
+      } else {
+        alert ("OUT")
+      }
+      infoWindow.setPosition(pos);
+      infoWindow.setContent('Location found.');
+      map.setCenter(pos);
+    }, function(){
+      handleLocationError(true,infoWindow, map.getCentre());
+    });
+  } else{
+    handleLocationError(false, infoWindow,map.getCentre());
+  }
 
   //polygon region coords
   var eea = [
@@ -2543,17 +2563,21 @@ var myPosition = new google.maps.LatLng(52.301764, -0.002352);
     {lat: -44.39846714225849, lng: -174.91607666015625},
     {lat: -36.87962060502676, lng: -179.40673828125}
    ];
-
   //contructing the polygon
-
   var region = new google.maps.Polygon({
-    paths: newZealand
+    paths: [eea, canada, southAmerica, newZealand],
+    strokeColor: '#FF0000',
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: '#FF0000',
+    fillOpacity: 0.35
   });
+  region.setMap(map);
+}
 
-  if (google.maps.geometry.poly.containsLocation(myPosition, region)) {
-    alert("IN");
-  } else {
-  alert ("OUT")
-  }
-
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+  infoWindow.setPosition(pos);
+  infoWindow.setContent(browserHasGeolocation ?
+  'Error: The Geolocation service failed.' :
+  'Error: Your browser doesn\'t support geolocation.');
 }
