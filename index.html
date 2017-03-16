@@ -7,27 +7,12 @@
     <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
-    <div id="geomap">
-      <p>
-        Starting Location:<br/>
-        <span id="startLat">???</span>&deg;, <span id="startLon">???</span>&deg;
-      </p>
-      <p>
-        Current Location:<br/>
-        <span id="currentLat">locating...</span>&deg;, <span id="currentLon">locating...</span>&deg;
-      </p>
-       <p>
-        Inside of the fence?<br/>
-        <span id="message">detecting....</span>
-      </p>
-    </div>
     <div id="map"></div>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script type="text/javascript" src="fence.js"></script>
-    <script type="text/javascript" src="geoF.js"></script>
-    <script type="text/javascript" src="serviceWorker.js"></script>
+    <!--<script type="text/javascript" src="geoF.js"></script>
+    <script type="text/javascript" src="serviceWorker.js"></script>-->
         <script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmg3b7i-3WqHjRRKkq48prN6iMMmHgqfY&callback=initMap">
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmg3b7i-3WqHjRRKkq48prN6iMMmHgqfY&callback=initMap&libraries=geometry">
     </script>
   </body>
 </html>
