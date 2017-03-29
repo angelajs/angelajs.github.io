@@ -9,7 +9,6 @@ var approved = [
 
 function location (json) {
     var currentLocation = $.inArray (json["countryCode"], approved);
-
     if (currentLocation > -1){
         alert ("IN");
     } else {
