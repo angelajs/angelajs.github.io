@@ -2,5 +2,5 @@ $.getJSON("http://api.ipinfodb.com/v3/ip-country/?key=a7593aaff69055862efe426544
 
 
 function jData(json) {
-    alert("Value of ipAddress: " + json["ipAddress"] + json["countryCode"]);
+    alert("Value of ipAddress: " + json["ipAddress"] + " and " + json["countryCode"]);
 }
