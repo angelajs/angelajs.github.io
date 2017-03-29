@@ -10,8 +10,8 @@ var approved = [
 function location (json) {
     var currentLocation = $.inArray (json["countryCode"], approved);
     if (currentLocation > -1){
-        alert ("IN");
+        alert ("IN.\nLocation: " + json["countryCode"]);
     } else {
-        alert ("OUT. Location: " + json["countryCode"]);
+        alert ("OUT.\nLocation: " + json["countryCode"]);
     }
 }
