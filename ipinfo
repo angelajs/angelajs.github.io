@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+ 
+<head>
+  <title>Display IP Address</title>
+</head>
+ 
+<body>
+ 
+  <script src="ipLocat.js"></script>
+</body>
+ 
+</html>
